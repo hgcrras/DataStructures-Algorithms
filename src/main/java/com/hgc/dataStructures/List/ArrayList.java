@@ -1,11 +1,13 @@
 package com.hgc.dataStructures.List;
 
-import java.util.Arrays;
+import java.util.Iterator;
+import java.util.Spliterator;
+import java.util.function.Consumer;
 
 /**
  * 动态数组
  */
-public class ArrayList<T> {
+public class ArrayList<T> implements Iterable<T> {
 
     /**
      * 逻辑大小
@@ -18,7 +20,7 @@ public class ArrayList<T> {
     private int capacity;
 
     /**
-     * 数据
+     * 数组
      */
     private Object[] array;
 
@@ -39,6 +41,7 @@ public class ArrayList<T> {
      * 在尾部添加
      */
     public void addLast(T value) {
+        checkCapacity(size + 1);
         this.array[size] = value;
         size++;
     }
@@ -53,6 +56,73 @@ public class ArrayList<T> {
         }
 
         return (T) array[index];
+    }
+
+    /**
+     * 获取第一个值
+     */
+    public T getFirst() {
+
+        if (isEmpty()) {
+            throw new ArrayIndexOutOfBoundsException("数组为空");
+        }
+
+        return get(0);
+    }
+
+    /**
+     * 插入
+     */
+    public void insert(int index, int value) {
+        checkCapacity(size + 1);
+
+        for (int i = size - 1; i >= index; i--) {
+            array[i + 1] = array[i];
+        }
+        size++;
+        array[index] = value;
+    }
+
+    /**
+     * 获取最后一个值
+     */
+    public T getLast() {
+
+        if (isEmpty()) {
+            throw new ArrayIndexOutOfBoundsException("数组为空");
+        }
+
+        return get(size - 1);
+    }
+
+    /**
+     * 检查是否需要扩容
+     */
+    private void checkCapacity(int capacity) {
+        if (this.capacity < capacity) {
+            grow(capacity);
+        }
+    }
+
+    /**
+     * 扩容
+     */
+    private void grow(int minCapacity) {
+        int oldCapacity = array.length;
+        // 扩容为原来的 1.5 倍
+        int newCapacity = oldCapacity + (oldCapacity >> 1);
+        if (newCapacity - minCapacity < 0) {
+            newCapacity = minCapacity;
+        }
+
+        Object[] temp = new Object[newCapacity];
+
+        for (int i = 0; i < size; i++) {
+            temp[i] = array[i];
+        }
+
+        capacity = newCapacity;
+        array = temp;
     }
 
     /**
@@ -84,4 +154,39 @@ public class ArrayList<T> {
 
         return sb.toString();
     }
+
+    /**
+     * 迭代器 增强for
+     */
+    @Override
+    public Iterator<T> iterator() {
+        return new ArrayListIterator();
+    }
+
+    @Override
+    public void forEach(Consumer<? super T> action) {
+        for (int i = 0; i < size; i++) {
+            action.accept((T) array[i]);
+        }
+    }
+
+
+    /**
+     * 迭代器实现
+     */
+    private class ArrayListIterator implements Iterator<T> {
+        private int cursor = 0;
+
+        @Override
+        public boolean hasNext() {
+            return cursor < size;
+        }
+
+
+        @Override
+        public T next() {
+            return (T) array[cursor++];
+        }
+    }
+
 }
