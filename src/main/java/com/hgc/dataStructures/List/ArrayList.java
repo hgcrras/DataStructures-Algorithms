@@ -1,7 +1,8 @@
 package com.hgc.dataStructures.List;
 
+import com.hgc.dataStructures.interfaces.List;
+
 import java.util.Iterator;
-import java.util.Spliterator;
 import java.util.function.Consumer;
 
 /**
@@ -27,6 +28,12 @@ public class ArrayList<T> implements List<T> {
     public ArrayList() {
         this.size = 0;
         this.capacity = 10;
+        this.array = new Object[this.capacity];
+    }
+
+    public ArrayList(int size) {
+        this.size = size;
+        this.capacity = size;
         this.array = new Object[this.capacity];
     }
 

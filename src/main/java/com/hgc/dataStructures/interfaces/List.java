@@ -1,4 +1,4 @@
-package com.hgc.dataStructures.List;
+package com.hgc.dataStructures.interfaces;
 
 public interface List<T> extends Iterable<T> {
 
