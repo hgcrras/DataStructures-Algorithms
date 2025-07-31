@@ -88,6 +88,7 @@ public class SimpleQueue<T> implements Queue<T> {
      * 获取头部元素
      */
     @Override
+    @SuppressWarnings("unchecked")
     public T getFirst() {
         return (T) data[0];
     }
@@ -96,6 +97,7 @@ public class SimpleQueue<T> implements Queue<T> {
      * 获取尾部元素
      */
     @Override
+    @SuppressWarnings("unchecked")
     public T getLast() {
         return (T) data[size - 1];
     }
@@ -105,13 +107,13 @@ public class SimpleQueue<T> implements Queue<T> {
      */
     @Override
     public Iterator<T> iterator() {
-        return new SimpleQueueIterator<>();
+        return new SimpleQueueIterator();
     }
 
     /**
      * 自定义迭代器
      */
-    private class SimpleQueueIterator<T> implements Iterator<T> {
+    private class SimpleQueueIterator implements Iterator<T> {
         private int cursor = 0;
 
         @Override
@@ -119,8 +121,8 @@ public class SimpleQueue<T> implements Queue<T> {
             return cursor < size;
         }
 
-
         @Override
+        @SuppressWarnings("unchecked")
         public T next() {
             return (T) data[cursor++];
         }

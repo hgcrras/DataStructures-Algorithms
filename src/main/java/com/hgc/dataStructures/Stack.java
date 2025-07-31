@@ -20,6 +20,7 @@ public class Stack<T> {
     /**
      * 压栈 添加
      */
+    @SuppressWarnings("unchecked")
     public T push(T value) {
 
         if (head >= size) {
@@ -33,6 +34,7 @@ public class Stack<T> {
     /**
      * 获取栈顶元素
      */
+    @SuppressWarnings("unchecked")
     public T get() {
         if (isEmpty()) {
             throw new RuntimeException("Stack Is Empty");
@@ -44,6 +46,7 @@ public class Stack<T> {
     /**
      * 弹出 删除
      */
+    @SuppressWarnings("unchecked")
     public T pop() {
         if (isEmpty()) {
             throw new RuntimeException("Stack Is Empty");

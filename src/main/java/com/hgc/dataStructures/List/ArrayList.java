@@ -67,6 +67,7 @@ public class ArrayList<T> implements List<T> {
      * 根据 index 获取 值
      */
     @Override
+    @SuppressWarnings("unchecked")
     public T get(int index) {
 
         if (index < 0 || index >= size) {
@@ -201,6 +202,7 @@ public class ArrayList<T> implements List<T> {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void forEach(Consumer<? super T> action) {
         for (int i = 0; i < size; i++) {
             action.accept((T) array[i]);
@@ -221,6 +223,7 @@ public class ArrayList<T> implements List<T> {
 
 
         @Override
+        @SuppressWarnings("unchecked")
         public T next() {
             return (T) array[cursor++];
         }
