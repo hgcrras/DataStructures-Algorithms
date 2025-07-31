@@ -7,7 +7,7 @@ import java.util.function.Consumer;
 /**
  * 动态数组
  */
-public class ArrayList<T> implements Iterable<T> {
+public class ArrayList<T> implements List<T> {
 
     /**
      * 逻辑大小
@@ -31,8 +31,17 @@ public class ArrayList<T> implements Iterable<T> {
     }
 
     /**
+     * 长度
+     */
+    @Override
+    public int size() {
+        return this.size;
+    }
+
+    /**
      * 添加一个值
      */
+    @Override
     public void add(T value) {
         addLast(value);
     }
@@ -40,6 +49,7 @@ public class ArrayList<T> implements Iterable<T> {
     /**
      * 在尾部添加
      */
+
     public void addLast(T value) {
         checkCapacity(size + 1);
         this.array[size] = value;
@@ -49,6 +59,7 @@ public class ArrayList<T> implements Iterable<T> {
     /**
      * 根据 index 获取 值
      */
+    @Override
     public T get(int index) {
 
         if (index < 0 || index >= size) {
@@ -59,21 +70,40 @@ public class ArrayList<T> implements Iterable<T> {
     }
 
     /**
+     * 删除
+     *
+     * @param index
+     */
+    @Override
+    public void remove(int index) {
+
+    }
+
+    /**
+     * 是否存在这个元素
+     *
+     * @param value
+     */
+    @Override
+    public boolean contains(Object value) {
+        return false;
+    }
+
+    /**
      * 获取第一个值
      */
     public T getFirst() {
-
         if (isEmpty()) {
             throw new ArrayIndexOutOfBoundsException("数组为空");
         }
-
         return get(0);
     }
 
     /**
      * 插入
      */
-    public void insert(int index, int value) {
+    @Override
+    public void insert(int index, T value) {
         checkCapacity(size + 1);
 
         for (int i = size - 1; i >= index; i--) {

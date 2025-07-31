@@ -1,8 +1,6 @@
-package com.hgc.dataStructures.List;
+package com.hgc.dataStructures.List.LinkedList;
 
 import java.util.Iterator;
-import java.util.Spliterator;
-import java.util.function.Consumer;
 
 /**
  * 单链表
